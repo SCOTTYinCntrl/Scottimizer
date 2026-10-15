@@ -35,6 +35,10 @@ the friction to tip.
 * **`ready-to-post.md`** — 👈 **start here.** Paste-ready posts for the platforms
   you already have (Reddit, X, TikTok/YouTube/Instagram), in the order to post
   them, with the media and captions to attach.
+* **`video-launch.md`** — the 22-second vertical promo video
+  (`Scottimizer-promo-1080x1920.mp4`) and a **separate caption + hashtag set for
+  TikTok, X, Instagram and YouTube**. Read this next to the video. The frame
+  renderer lives at `../tools/Build-PromoVideo.ps1`.
 * **`launch-runbook.md`** — the wider "do this now" sequence:
   pre-flight, Reddit, Show HN, directories, video, and a post log to measure
   which channel worked.

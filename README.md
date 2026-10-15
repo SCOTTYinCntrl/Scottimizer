@@ -1,8 +1,12 @@
 # Scottimizer 2 — Advanced Gaming, Privacy & Security Tuner
 
+[![Release](https://img.shields.io/github/v/release/SCOTTYinCntrl/Scottimizer?color=8b5cf6&label=release)](https://github.com/SCOTTYinCntrl/Scottimizer/releases)
+[![Downloads](https://img.shields.io/github/downloads/SCOTTYinCntrl/Scottimizer/total?color=22d3ee)](https://github.com/SCOTTYinCntrl/Scottimizer/releases)
 ![Platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-0078D6)
 ![PowerShell](https://img.shields.io/badge/PowerShell-5.1-5391FE)
-![License](https://img.shields.io/badge/license-MIT-green)
+[![License](https://img.shields.io/github/license/SCOTTYinCntrl/Scottimizer?color=8b5cf6)](LICENSE)
+
+**Website & screenshots:** https://scottyincntrl.github.io/Scottimizer/
 
 A ground-up upgrade of the original Scottimizer. It keeps the simple
 toggle-and-apply idea but adds **79 tweaks across 6 categories**, a

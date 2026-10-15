@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scottimizer — Advanced Windows gaming, privacy &amp; security tuner</title>
+<meta name="description" content="Scottimizer is an advanced Windows tuning utility: 79 tweaks, a one-click security audit, per-tweak latency benchmarks, exact-state undo and a fully customisable look.">
+<meta property="og:title" content="Scottimizer">
+<meta property="og:description" content="Advanced Windows gaming, privacy and security tuner. Free and open source (MIT).">
+<meta property="og:image" content="assets/icon.png">
+<link rel="icon" type="image/png" href="assets/icon.png">
+<style>
+  :root{
+    --bg:#0a0a12;
+    --bg2:#0f0f1c;
+    --panel:rgba(255,255,255,.04);
+    --panel-brd:rgba(255,255,255,.09);
+    --txt:#e8e8f0;
+    --muted:#a0a0b8;
+    --p1:#8b5cf6;
+    --p2:#4c1d95;
+    --cyan:#22d3ee;
+    --gold:#ffcb45;
+    --radius:16px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    color:var(--txt);
+    background:var(--bg);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+  /* ---------- glow background ---------- */
+  .glow{position:fixed;inset:0;z-index:-1;overflow:hidden}
+  .glow::before,.glow::after{content:"";position:absolute;border-radius:50%;filter:blur(120px);opacity:.5}
+  .glow::before{width:640px;height:640px;background:#7c3aed;top:-260px;left:-160px}
+  .glow::after{width:560px;height:560px;background:#0e7490;bottom:-260px;right:-160px;opacity:.35}
+
+  /* ---------- nav ---------- */
+  header{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);
+    background:rgba(10,10,18,.72);border-bottom:1px solid var(--panel-brd)}
+  nav{display:flex;align-items:center;gap:20px;height:64px}
+  nav .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.05rem;text-decoration:none}
+  nav .brand img{width:30px;height:30px;border-radius:8px}
+  nav .links{margin-left:auto;display:flex;gap:22px}
+  nav .links a{text-decoration:none;color:var(--muted);font-size:.92rem;font-weight:500}
+  nav .links a:hover{color:var(--txt)}
+  @media(max-width:720px){nav .links{display:none}}
+
+  /* ---------- buttons ---------- */
+  .btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;
+    padding:13px 22px;border-radius:12px;font-weight:600;font-size:.98rem;
+    border:1px solid transparent;transition:.18s transform,.18s box-shadow,.18s opacity;white-space:nowrap}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:linear-gradient(135deg,var(--p1),var(--p2));color:#fff;
+    box-shadow:0 10px 30px -8px rgba(139,92,246,.75)}
+  .btn-primary:hover{box-shadow:0 16px 38px -8px rgba(139,92,246,.9)}
+  .btn-ghost{background:var(--panel);border-color:var(--panel-brd);color:var(--txt)}
+  .btn-ghost:hover{background:rgba(255,255,255,.09)}
+  .btn svg{width:18px;height:18px}
+
+  /* ---------- hero ---------- */
+  .hero{padding:88px 0 72px;text-align:center}
+  .hero .appicon{width:120px;height:120px;border-radius:28px;
+    box-shadow:0 24px 60px -18px rgba(139,92,246,.9)}
+  .hero h1{font-size:clamp(2.4rem,6vw,4rem);line-height:1.05;margin:26px 0 10px;letter-spacing:-.02em}
+  .hero h1 span{background:linear-gradient(120deg,var(--p1),var(--cyan));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.tag{font-size:clamp(1.02rem,2.4vw,1.28rem);color:var(--muted);max-width:660px;margin:0 auto 32px}
+  .hero .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .hero .meta{margin-top:18px;color:var(--muted);font-size:.86rem}
+  .hero .meta a{color:var(--muted)}
+
+  /* ---------- badges ---------- */
+  .badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:26px 0 0}
+  .badges img{height:20px;opacity:.95}
+
+  /* ---------- sections ---------- */
+  section{padding:64px 0}
+  .sec-head{text-align:center;margin-bottom:44px}
+  .sec-head h2{font-size:clamp(1.6rem,3.6vw,2.2rem);margin:0 0 8px;letter-spacing:-.01em}
+  .sec-head p{color:var(--muted);margin:0}
+
+  /* ---------- features ---------- */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--panel-brd);border-radius:var(--radius);
+    padding:22px;transition:.2s border-color,.2s transform}
+  .card:hover{border-color:rgba(139,92,246,.55);transform:translateY(-3px)}
+  .card .ico{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;
+    background:linear-gradient(135deg,rgba(139,92,246,.25),rgba(34,211,238,.18));
+    font-size:19px;margin-bottom:14px}
+  .card h3{margin:0 0 6px;font-size:1.05rem}
+  .card p{margin:0;color:var(--muted);font-size:.92rem}
+
+  /* ---------- screenshots ---------- */
+  .shots{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  @media(max-width:760px){.shots{grid-template-columns:1fr}}
+  .shot{background:var(--panel);border:1px solid var(--panel-brd);border-radius:var(--radius);
+    overflow:hidden;cursor:zoom-in;transition:.2s border-color,.2s transform}
+  .shot:hover{border-color:rgba(139,92,246,.55);transform:translateY(-3px)}
+  .shot img{width:100%;display:block}
+  .shot figcaption{padding:12px 16px;font-size:.88rem;color:var(--muted);border-top:1px solid var(--panel-brd)}
+
+  /* ---------- install ---------- */
+  .install{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:900px){.install{grid-template-columns:1fr}}
+  .step{background:var(--panel);border:1px solid var(--panel-brd);border-radius:var(--radius);padding:24px}
+  .step .n{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:700;
+    background:linear-gradient(135deg,var(--p1),var(--p2));color:#fff;font-size:.9rem;margin-bottom:14px}
+  .step h3{margin:0 0 8px;font-size:1.05rem}
+  .step p{color:var(--muted);font-size:.92rem;margin:0 0 14px}
+  pre{background:#07070d;border:1px solid var(--panel-brd);border-radius:10px;
+    padding:13px 15px;overflow:auto;font-size:.86rem;margin:0;position:relative}
+  code{font-family:"Cascadia Code",Consolas,"SF Mono",Menlo,monospace;color:#d7d7e6}
+  .copy{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.08);border:1px solid var(--panel-brd);
+    color:var(--muted);border-radius:7px;padding:3px 9px;font-size:.72rem;cursor:pointer}
+  .copy:hover{color:#fff;background:rgba(255,255,255,.16)}
+
+  /* ---------- note ---------- */
+  .note{max-width:820px;margin:34px auto 0;background:rgba(255,203,69,.07);
+    border:1px solid rgba(255,203,69,.28);border-radius:var(--radius);padding:18px 22px;
+    color:#f0e2b8;font-size:.92rem}
+  .note strong{color:var(--gold)}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--panel-brd);padding:34px 0 54px;color:var(--muted);font-size:.88rem}
+  footer .row{display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+  footer a{color:var(--muted)}
+
+  /* ---------- lightbox ---------- */
+  .lb{position:fixed;inset:0;background:rgba(4,4,10,.92);display:none;z-index:60;
+    align-items:center;justify-content:center;padding:24px}
+  .lb.on{display:flex}
+  .lb img{max-width:100%;max-height:92vh;border-radius:12px;box-shadow:0 30px 80px -20px #000}
+</style>
+</head>
+<body>
+<div class="glow"></div>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="#top"><img src="assets/icon.png" alt="">Scottimizer</a>
+      <div class="links">
+        <a href="#features">Features</a>
+        <a href="#screens">Screenshots</a>
+        <a href="#install">Install</a>
+        <a href="https://github.com/SCOTTYinCntrl/Scottimizer">Source</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<a id="top"></a>
+<div class="wrap hero">
+  <img class="appicon" src="assets/icon.png" alt="Scottimizer icon">
+  <h1>Make Windows <span>faster &amp; safer</span></h1>
+  <p class="tag">An advanced gaming, privacy and security tuner for Windows 10 &amp; 11 —
+     79 tweaks, a one-click security audit, per-tweak latency benchmarks, exact-state undo
+     and a look that's entirely yours.</p>
+  <div class="cta">
+    <a class="btn btn-primary" href="https://github.com/SCOTTYinCntrl/Scottimizer/releases/latest">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download for Windows
+    </a>
+    <a class="btn btn-ghost" href="https://github.com/SCOTTYinCntrl/Scottimizer">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+      View source
+    </a>
+  </div>
+  <div class="meta">Free &amp; open source · MIT licensed · Windows 10 / 11 · Administrator required</div>
+  <div class="badges">
+    <a href="https://github.com/SCOTTYinCntrl/Scottimizer/releases"><img src="https://img.shields.io/github/v/release/SCOTTYinCntrl/Scottimizer?color=8b5cf6&label=release" alt="Latest release"></a>
+    <a href="https://github.com/SCOTTYinCntrl/Scottimizer/releases"><img src="https://img.shields.io/github/downloads/SCOTTYinCntrl/Scottimizer/total?color=22d3ee&label=downloads" alt="Downloads"></a>
+    <img src="https://img.shields.io/github/license/SCOTTYinCntrl/Scottimizer?color=8b5cf6" alt="License">
+    <img src="https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-0078D6" alt="Platform">
+  </div>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>What makes it advanced</h2>
+      <p>Everything the simple toggle tools leave out.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="ico">🎮</div><h3>79 tweaks, 6 categories</h3><p>Gaming &amp; performance, network latency, security hardening, privacy, debloat and system/storage — each with a risk level and plain-English description.</p></div>
+      <div class="card"><div class="ico">🛡️</div><h3>Security audit &amp; auto-fix</h3><p>~36 read-only checks with a 0–100 score. Every failing item that maps to a tweak gets a one-click Fix button.</p></div>
+      <div class="card"><div class="ico">📉</div><h3>Per-tweak benchmarking</h3><p>Before and after <em>every</em> change, it pings your target and records average latency and jitter. Green means faster. Export to CSV.</p></div>
+      <div class="card"><div class="ico">↩️</div><h3>Real undo</h3><p>Snapshots your exact prior state — registry values <em>and their types</em>, service modes, power plan and DNS — so Undo restores precisely.</p></div>
+      <div class="card"><div class="ico">🎨</div><h3>Make it yours</h3><p>Gradients, solid colours or your own photo background, eight accent colours and a dim slider. Saved between launches.</p></div>
+      <div class="card"><div class="ico">⚡</div><h3>Profiles &amp; tools</h3><p>Recommended, Max performance, Low latency, Hardened, Private and Everything — plus DNS flush, memory clear, network reset, DISM/SFC and more.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="screens">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Take a look</h2>
+      <p>Click any screenshot to enlarge.</p>
+    </div>
+    <div class="shots">
+      <figure class="shot"><img src="assets/shot-dashboard.png" alt="Dashboard"><figcaption>Live dashboard — system info, network summary and quick tools</figcaption></figure>
+      <figure class="shot"><img src="assets/shot-gaming.png" alt="Gaming and performance"><figcaption>Gaming &amp; performance tweaks</figcaption></figure>
+      <figure class="shot"><img src="assets/shot-audit.png" alt="Security audit"><figcaption>Security audit with score and one-click fixes</figcaption></figure>
+      <figure class="shot"><img src="assets/shot-benchmarks.png" alt="Latency benchmarks"><figcaption>Per-tweak latency benchmarks</figcaption></figure>
+      <figure class="shot"><img src="assets/shot-security.png" alt="Security hardening"><figcaption>Security hardening</figcaption></figure>
+      <figure class="shot"><img src="assets/shot-appearance.png" alt="Appearance"><figcaption>Appearance — backgrounds and accent colours</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Install</h2>
+      <p>Pick whichever suits you.</p>
+    </div>
+    <div class="install">
+      <div class="step">
+        <div class="n">1</div>
+        <h3>Download the app</h3>
+        <p>Grab the latest zip, unzip anywhere and run <code>Scottimizer.exe</code>.</p>
+        <a class="btn btn-primary" href="https://github.com/SCOTTYinCntrl/Scottimizer/releases/latest" style="padding:10px 16px;font-size:.9rem">Latest release</a>
+      </div>
+      <div class="step">
+        <div class="n">2</div>
+        <h3>Install with winget</h3>
+        <p>Available once the package is approved by the winget community repo.</p>
+        <pre><button class="copy" data-copy="winget install SCOTTYinCntrl.Scottimizer">Copy</button><code>winget install SCOTTYinCntrl.Scottimizer</code></pre>
+      </div>
+      <div class="step">
+        <div class="n">3</div>
+        <h3>Run from source</h3>
+        <p>Prefer no <code>.exe</code>? Clone the repo and double-click <code>Scottimizer.bat</code>.</p>
+        <pre><button class="copy" data-copy="git clone https://github.com/SCOTTYinCntrl/Scottimizer.git">Copy</button><code>git clone https://github.com/SCOTTYinCntrl/Scottimizer.git</code></pre>
+      </div>
+    </div>
+    <div class="note">
+      <strong>First run:</strong> the app self-elevates, so accept the Administrator prompt.
+      The <code>.exe</code> is unsigned, so SmartScreen may show <em>“Windows protected your PC”</em> the
+      first time — click <strong>More info → Run anyway</strong>, or use <code>Scottimizer.bat</code>
+      to avoid the warning entirely. The full source is in the repository; read every line before you run it.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap row">
+    <div>© 2026 SCOTTYinCntrl · MIT licensed · Inspired by Chris Titus' WinUtil</div>
+    <div><a href="https://github.com/SCOTTYinCntrl/Scottimizer">GitHub</a> · <a href="https://github.com/SCOTTYinCntrl/Scottimizer/releases">Releases</a> · <a href="https://github.com/SCOTTYinCntrl/Scottimizer/blob/main/LICENSE">License</a></div>
+  </div>
+</footer>
+
+<div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
+
+<script>
+  // copy buttons
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click', function(){
+      navigator.clipboard.writeText(b.dataset.copy).then(function(){
+        var t = b.textContent; b.textContent = 'Copied!';
+        setTimeout(function(){ b.textContent = t; }, 1200);
+      });
+    });
+  });
+  // lightbox
+  var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
+  document.querySelectorAll('.shot img').forEach(function(img){
+    img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
+  });
+  lb.addEventListener('click', function(){ lb.classList.remove('on'); lbimg.src = ''; });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ lb.classList.remove('on'); lbimg.src=''; } });
+</script>
+</body>
+</html>

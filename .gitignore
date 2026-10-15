@@ -1,0 +1,22 @@
+# ---- Runtime / user-specific data ------------------------------------
+/logs/
+/state/
+/settings.json
+/benchmarks.json
+
+# ---- Generated build outputs (shipped via GitHub Releases instead) ---
+/Scottimizer.Standalone.ps1
+/Scottimizer.exe
+/*.zip
+
+# ---- Self-test artifacts --------------------------------------------
+/selftest.txt
+/shot-*.png
+
+# ---- OS / editor cruft ----------------------------------------------
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
+*.swp

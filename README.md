@@ -31,8 +31,9 @@ Get the latest build from the **[Releases page](../../releases/latest)**:
 > the first time — click **More info → Run anyway**, or use `Scottimizer.bat`
 > to avoid the warning entirely.
 
-Installing with a package manager? Once published, the winget manifest lets you
-run `winget install Scottimizer`.
+Installing with a package manager? The winget manifest is
+[submitted and pending review](https://github.com/microsoft/winget-pkgs/pull/453051) —
+once merged you can run `winget install SCOTTYinCntrl.Scottimizer`.
 
 ---
 

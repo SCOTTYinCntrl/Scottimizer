@@ -8,6 +8,7 @@
 /Scottimizer.Standalone.ps1
 /Scottimizer.exe
 /*.zip
+/dist/
 
 # ---- Self-test artifacts --------------------------------------------
 /selftest.txt

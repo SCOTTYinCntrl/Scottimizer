@@ -27,7 +27,7 @@ Add-Type -AssemblyName PresentationFramework, PresentationCore, WindowsBase
 
 # ---------- Paths / state ----------
 $script:AppName = 'Scottimizer'
-$script:Version = '2.0'
+$script:Version = '2.1.1'
 $script:AppRoot = $PSScriptRoot
 if (-not $script:AppRoot) { $script:AppRoot = (Get-Location).Path }
 $script:LogDir   = Join-Path $script:AppRoot 'logs'

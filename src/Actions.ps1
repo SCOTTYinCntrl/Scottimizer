@@ -442,8 +442,8 @@ function Invoke-Apply {
         $msg = if ($needReboot) { 'Done. Restart your PC so every change takes effect.' }
                elseif ($failed -gt 0) { "Done with $failed failure(s). See the log." }
                else { 'Done. Everything applied.' }
-        Write-Log $msg (if ($failed -gt 0) { 'warn' } else { 'ok' })
-        Set-Status $msg (if ($failed -gt 0) { 'warn' } else { 'ok' })
+        Write-Log $msg $(if ($failed -gt 0) { 'warn' } else { 'ok' })
+        Set-Status $msg $(if ($failed -gt 0) { 'warn' } else { 'ok' })
     } finally {
         Set-Busy $false
         if ($script:ActiveGroup) { Update-ActiveBadges $script:ActiveGroup }

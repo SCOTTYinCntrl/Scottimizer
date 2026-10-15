@@ -1,0 +1,63 @@
+name: release
+
+# Turn a version tag into a published GitHub Release with the built app.
+# Push a tag (e.g. `git tag v2.2.0 && git push origin v2.2.0`) or run this
+# workflow manually and supply the tag.
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to release, e.g. v2.2.0 (must already exist)'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Resolve version
+        id: v
+        shell: pwsh
+        run: |
+          $tag = if ($env:GITHUB_REF_TYPE -eq 'tag') { $env:GITHUB_REF_NAME } else { '${{ github.event.inputs.tag }}' }
+          if (-not $tag) { throw 'No tag resolved.' }
+          $ver = $tag.TrimStart('v')
+          "tag=$tag"   | Out-File -Append -Encoding utf8 $env:GITHUB_OUTPUT
+          "ver=$ver"   | Out-File -Append -Encoding utf8 $env:GITHUB_OUTPUT
+          Write-Host "Releasing $tag"
+
+      - name: Build standalone + .exe
+        shell: pwsh
+        run: |
+          Set-PSRepository -Name PSGallery -InstallationPolicy Trusted -ErrorAction SilentlyContinue
+          ./Build-EXE.ps1 -Version '${{ steps.v.outputs.ver }}'
+
+      - name: Package release zip + checksum
+        shell: pwsh
+        run: ./tools/Pack-Release.ps1 -Version '${{ steps.v.outputs.ver }}' -OutDir dist
+
+      - name: Publish the release
+        shell: pwsh
+        run: |
+          $tag = '${{ steps.v.outputs.tag }}'
+          $ver = '${{ steps.v.outputs.ver }}'
+          $notes = "Scottimizer $ver`n`nDownload **Scottimizer-Advanced.zip**, unzip anywhere and run Scottimizer.exe.`nSee the file list below and the repository README for details."
+          gh release view $tag 2>$null
+          if ($LASTEXITCODE -eq 0) {
+            gh release upload $tag 'dist/Scottimizer-Advanced.zip' 'dist/Scottimizer-Advanced.zip.sha256' --clobber
+          } else {
+            gh release create $tag --title "Scottimizer $ver" --notes $notes --generate-notes `
+              'dist/Scottimizer-Advanced.zip' 'dist/Scottimizer-Advanced.zip.sha256'
+          }
+          Write-Host "Published $tag"

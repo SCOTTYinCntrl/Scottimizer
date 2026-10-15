@@ -5,6 +5,7 @@
 ![Platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-0078D6)
 ![PowerShell](https://img.shields.io/badge/PowerShell-5.1-5391FE)
 [![License](https://img.shields.io/github/license/SCOTTYinCntrl/Scottimizer?color=8b5cf6)](LICENSE)
+[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-ff69b4)](https://github.com/SCOTTYinCntrl/Scottimizer/blob/main/.github/FUNDING.yml)
 
 **Website & screenshots:** https://scottyincntrl.github.io/Scottimizer/
 
@@ -176,6 +177,18 @@ with the free `ps2exe` module (downloaded automatically the first time).
 Some antivirus tools flag any ps2exe-built file as suspicious; if that happens,
 just keep using `Scottimizer.bat` (identical behaviour, no exe needed).
 
+### Shipping a release (automated)
+One command builds, packages, tags, pushes and publishes a GitHub Release:
+
+```
+powershell -NoProfile -ExecutionPolicy Bypass -File tools\Release.ps1 -Version 2.1.1
+```
+
+Add `-DryRun` to preview, or `-SkipExe` to ship source-only. Pushing a `v*` tag
+instead triggers the same build in CI (`.github/workflows/release.yml`). After a
+release, refresh the winget package with `tools\Update-Winget.ps1`. See
+`marketing\` for launch copy and the submission checklist.
+
 ### The app icon
 `appicon.ico` is a purple rounded tile with a bold white **S** and a gold
 lightning bolt, shipped at 7 sizes (16–256 px). It is embedded in
@@ -215,6 +228,7 @@ Scottimizer is free, open source (MIT) and has no ads, telemetry or paid tiers.
 If it saved you time, latency or a headache, you can support development:
 
 ☕ **Cash App:** [`$ScottyRockIt27`](https://cash.app/$ScottyRockIt27)
+· ❤️ **GitHub Sponsors:** [sponsor SCOTTYinCntrl](https://github.com/sponsors/SCOTTYinCntrl)
 
 Can't chip in? Starring the repo, sharing it and reporting bugs helps just as much.
 

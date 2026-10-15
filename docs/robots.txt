@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://scottyincntrl.github.io/Scottimizer/sitemap.xml

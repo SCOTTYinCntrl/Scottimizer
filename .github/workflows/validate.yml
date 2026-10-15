@@ -1,0 +1,47 @@
+name: validate
+
+# Cheap safety net: runs on every push and pull request and refuses to let a
+# broken PowerShell file or a bad module merge get merged into main.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  parse:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Parse every PowerShell file
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $files = @(Get-ChildItem -Recurse -Filter *.ps1 |
+                     Where-Object { $_.FullName -notmatch '\\\.git\\' })
+          $bad = 0
+          foreach ($f in $files) {
+            $errs = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile($f.FullName, [ref]$null, [ref]$errs)
+            if ($errs -and $errs.Count) {
+              $bad++
+              Write-Host "::error file=$($f.Name)::$($errs.Count) parse error(s)"
+              $errs | ForEach-Object { Write-Host "    $($f.Name):$($_.Extent.StartLineNumber): $($_.Message)" }
+            }
+          }
+          if ($bad) { throw "$bad PowerShell file(s) failed to parse." }
+          Write-Host "OK - $($files.Count) PowerShell file(s) parsed cleanly."
+
+      - name: Merge modules into the standalone build
+        shell: pwsh
+        run: ./Build-Single.ps1
+
+      - name: Smoke-test the merged script parses
+        shell: pwsh
+        run: |
+          $errs = $null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path ./Scottimizer.Standalone.ps1), [ref]$null, [ref]$errs)
+          if ($errs -and $errs.Count) { throw "Standalone merge failed to parse." }
+          Write-Host "OK - standalone merge parses."

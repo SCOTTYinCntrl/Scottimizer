@@ -37,8 +37,8 @@ function Set-DnsForActiveNics([string[]]$Servers) {
     }
 }
 
-function Invoke-PowerCfg([string[]]$Args) {
-    $out = & powercfg @Args 2>&1 | Out-String
+function Invoke-PowerCfg([string[]]$PowerArgs) {
+    $out = & powercfg @PowerArgs 2>&1 | Out-String
     if ($LASTEXITCODE -ne 0 -and $out -match 'error') { throw $out.Trim() }
     return $out
 }

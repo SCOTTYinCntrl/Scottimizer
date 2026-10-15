@@ -4,10 +4,16 @@
 #  using the free ps2exe module (installed on demand).
 #
 #  Usage:  powershell -NoProfile -ExecutionPolicy Bypass -File Build-EXE.ps1
+#          powershell ... -File Build-EXE.ps1 -Version 2.1.1
 # =====================================================================
+param([string]$Version = '2.1.1')
+
 $ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
 if (-not $root) { $root = (Get-Location).Path }
+
+# Normalise to a 4-part version for the executable metadata.
+$v4 = (($Version.TrimStart('v').Split('.') + @('0','0','0','0'))[0..3]) -join '.'
 
 # 1) Merge the modules into one portable script.
 & (Join-Path $root 'Build-Single.ps1')
@@ -35,7 +41,7 @@ $out = Join-Path $root 'Scottimizer.exe'
 if (Test-Path $out) { Remove-Item $out -Force }
 
 Invoke-ps2exe -inputFile $in -outputFile $out -noConsole -STA -requireAdmin `
-    -title 'Scottimizer' -product 'Scottimizer' -version '2.1.0.0' `
+    -title 'Scottimizer' -product 'Scottimizer' -version $v4 `
     -description 'Advanced Windows gaming, privacy and security tuner' -company 'Scottimizer' `
     -iconFile $icon
 

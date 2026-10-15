@@ -109,7 +109,16 @@ try {
     Set-Content -LiteralPath $noteFile -Value $body -Encoding UTF8
 
     if (Get-Command gh -ErrorAction SilentlyContinue) {
-        Run 'gh' @('release','create',$tag,'--title',"Scottimizer $ver",'--notes-file',$noteFile,$zip,$sha,'-R',$Repo)
+        $exists = $false
+        if (-not $DryRun) {
+            gh release view $tag *> $null
+            $exists = ($LASTEXITCODE -eq 0)
+        }
+        if ($exists) {
+            Run 'gh' @('release','upload',$tag,$zip,$sha,'--clobber','-R',$Repo)
+        } else {
+            Run 'gh' @('release','create',$tag,'--title',"Scottimizer $ver",'--notes-file',$noteFile,$zip,$sha,'-R',$Repo)
+        }
     } else {
         Write-Warning 'gh CLI not found - push the tag and the release workflow will build it, or create the release manually.'
     }

@@ -56,12 +56,18 @@ jobs:
         run: |
           $tag = '${{ steps.v.outputs.tag }}'
           $ver = '${{ steps.v.outputs.ver }}'
-          $notes = "Scottimizer $ver`n`nDownload **Scottimizer-Advanced.zip**, unzip anywhere and run Scottimizer.exe.`nSee the file list below and the repository README for details."
-          gh release view $tag 2>$null
+          gh release view $tag *> $null
           if ($LASTEXITCODE -eq 0) {
-            gh release upload $tag 'dist/Scottimizer-Advanced.zip' 'dist/Scottimizer-Advanced.zip.sha256' --clobber
-          } else {
-            gh release create $tag --title "Scottimizer $ver" --notes $notes --generate-notes `
-              'dist/Scottimizer-Advanced.zip' 'dist/Scottimizer-Advanced.zip.sha256'
+            # A release already exists (normally published locally by tools\Release.ps1).
+            # Do NOT overwrite its assets: the committed manifests under packaging\
+            # reference the published zip's SHA-256, so re-uploading a freshly built
+            # zip would silently invalidate them. Leave the existing assets alone.
+            Write-Host "Release $tag already exists - leaving its assets untouched."
+            exit 0
           }
+          $notes = "Scottimizer $ver`n`nDownload **Scottimizer-Advanced.zip**, unzip anywhere and run Scottimizer.exe.`nSee the file list below and the repository README for details."
+          gh release create $tag --title "Scottimizer $ver" --notes $notes --generate-notes `
+            'dist/Scottimizer-Advanced.zip' 'dist/Scottimizer-Advanced.zip.sha256'
           Write-Host "Published $tag"
+          Write-Host "NOTE: this CI-built zip is now the published asset. Commit the manifests this"
+          Write-Host "run generated under packaging\ (git add packaging) so they match its SHA-256."

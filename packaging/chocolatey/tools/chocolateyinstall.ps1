@@ -6,7 +6,7 @@ $packageArgs = @{
   packageName   = 'scottimizer'
   unzipLocation = $toolsDir
   url           = 'https://github.com/SCOTTYinCntrl/Scottimizer/releases/download/v2.1.2/Scottimizer-Advanced.zip'
-  checksum      = '297240AEB5FA8001FAE700327CC2064BE7285F865870E9DEFDFABF1C9A3B291B'
+  checksum      = '9D1B9E0FC3390CC3DC59F47C3EA8F2D3BAD20F6CD819CD0AD7D4DF866691B158'
   checksumType  = 'sha256'
 }
 

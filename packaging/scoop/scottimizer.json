@@ -4,7 +4,7 @@
     "homepage": "https://scottyincntrl.github.io/Scottimizer/",
     "license": "MIT",
     "url": "https://github.com/SCOTTYinCntrl/Scottimizer/releases/download/v2.1.2/Scottimizer-Advanced.zip",
-    "hash": "sha256:297240aeb5fa8001fae700327cc2064be7285f865870e9defdfabf1c9a3b291b",
+    "hash": "sha256:9d1b9e0fc3390cc3dc59f47c3ea8f2d3bad20f6cd819cd0ad7d4df866691b158",
     "bin": "Scottimizer.exe",
     "shortcuts": [
         [

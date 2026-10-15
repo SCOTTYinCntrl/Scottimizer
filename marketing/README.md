@@ -32,9 +32,16 @@ the friction to tip.
 
 ## Files
 
+* **`launch-runbook.md`** — 👈 **start here.** The ordered "do this now" sequence:
+  pre-flight, Reddit, Show HN, directories, video, and a post log to measure
+  which channel worked.
 * **`launch-kit.md`** — ready-to-paste copy for every channel (short/long blurbs,
   Reddit posts, Show HN, a tweet thread, video hooks, directory fields).
+* **`press-kit.md`** — fact sheet, asset URLs and a pitch email for creators and
+  press. Send people this link.
 * **`targets.md`** — where to submit, with links and a status checklist.
+* **`../tools/Get-Metrics.ps1`** — run it to see stars, downloads and traffic
+  (the north-star number) before and after each post.
 
 ## Rules of thumb
 

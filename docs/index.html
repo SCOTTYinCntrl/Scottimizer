@@ -136,6 +136,24 @@
   footer .row{display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-content:space-between}
   footer a{color:var(--muted)}
 
+  /* ---------- support ---------- */
+  .support-card{max-width:720px;margin:0 auto;text-align:center;background:var(--panel);
+    border:1px solid var(--panel-brd);border-radius:22px;padding:38px 28px;
+    position:relative;overflow:hidden}
+  .support-card::before{content:"";position:absolute;top:-40%;left:-10%;right:-10%;bottom:auto;height:360px;
+    background:radial-gradient(closest-side,rgba(0,214,50,.20),transparent);pointer-events:none}
+  .support-card .coffee{font-size:54px;line-height:1;margin-bottom:12px}
+  .support-card h3{margin:0 0 8px;font-size:1.4rem}
+  .support-card > p{color:var(--muted);max-width:540px;margin:0 auto 24px}
+  .btn-cash{background:linear-gradient(135deg,#00d632,#00a428);color:#04140a;
+    font-weight:700;box-shadow:0 10px 30px -8px rgba(0,214,50,.6)}
+  .btn-cash:hover{box-shadow:0 16px 40px -8px rgba(0,214,50,.85)}
+  .cash-tag{margin-top:24px;display:inline-flex;flex-direction:column;gap:8px;align-items:center;width:100%}
+  .cash-tag span{color:var(--muted);font-size:.76rem;text-transform:uppercase;letter-spacing:.1em}
+  .cash-tag pre{min-width:280px;text-align:center;padding:12px 16px}
+  .support-card .fine{margin:22px auto 0;font-size:.85rem;color:var(--muted);max-width:540px}
+  @media(max-width:600px){.support-card{padding:28px 18px}.cash-tag pre{min-width:0;width:100%}}
+
   /* ---------- lightbox ---------- */
   .lb{position:fixed;inset:0;background:rgba(4,4,10,.92);display:none;z-index:60;
     align-items:center;justify-content:center;padding:24px}
@@ -154,6 +172,7 @@
         <a href="#features">Features</a>
         <a href="#screens">Screenshots</a>
         <a href="#install">Install</a>
+        <a href="#support">Support</a>
         <a href="https://github.com/SCOTTYinCntrl/Scottimizer">Source</a>
       </div>
     </nav>
@@ -255,10 +274,33 @@
   </div>
 </section>
 
+<section id="support">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Buy me a coffee</h2>
+      <p>Scottimizer is free, open source and has no ads, telemetry or paid tiers. If it saved you time, latency or a headache, you can say thanks.</p>
+    </div>
+    <div class="support-card">
+      <div class="coffee">☕</div>
+      <h3>Support the project</h3>
+      <p>Every contribution goes straight back into buying test hardware and adding more tweaks.</p>
+      <a class="btn btn-cash" href="https://cash.app/$ScottyRockIt27" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Buy me a coffee — $ScottyRockIt27
+      </a>
+      <div class="cash-tag">
+        <span>Cash App cashtag</span>
+        <pre><button class="copy" data-copy="$ScottyRockIt27">Copy</button><code>$ScottyRockIt27</code></pre>
+      </div>
+      <p class="fine">Not able to chip in? No problem — starring the repo, sharing the video and telling a friend helps just as much.</p>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap row">
     <div>© 2026 SCOTTYinCntrl · MIT licensed · Inspired by Chris Titus' WinUtil</div>
-    <div><a href="https://github.com/SCOTTYinCntrl/Scottimizer">GitHub</a> · <a href="https://github.com/SCOTTYinCntrl/Scottimizer/releases">Releases</a> · <a href="https://github.com/SCOTTYinCntrl/Scottimizer/blob/main/LICENSE">License</a></div>
+    <div><a href="#support">Support</a> · <a href="https://github.com/SCOTTYinCntrl/Scottimizer">GitHub</a> · <a href="https://github.com/SCOTTYinCntrl/Scottimizer/releases">Releases</a> · <a href="https://github.com/SCOTTYinCntrl/Scottimizer/blob/main/LICENSE">License</a></div>
   </div>
 </footer>
 

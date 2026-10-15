@@ -210,5 +210,13 @@ Use at your own risk. These are real system changes; the snapshot and restore
 point exist to make them reversible. Review the descriptions before enabling
 anything, especially **Advanced** items.
 
+## Buy me a coffee
+Scottimizer is free, open source (MIT) and has no ads, telemetry or paid tiers.
+If it saved you time, latency or a headache, you can support development:
+
+☕ **Cash App:** [`$ScottyRockIt27`](https://cash.app/$ScottyRockIt27)
+
+Can't chip in? Starring the repo, sharing it and reporting bugs helps just as much.
+
 ## License
 Released under the [MIT License](LICENSE).

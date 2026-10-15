@@ -41,13 +41,13 @@ Get the latest build from the **[Releases page](../../releases/latest)**:
 Manifests for **winget**, **Scoop** and **Chocolatey** are generated
 automatically from every release (see [`packaging/`](packaging/README.md)):
 
-| Manager | Status |
-|---|---|
-| **winget** | [Submitted, pending review](https://github.com/microsoft/winget-pkgs/pull/453051) — `winget install SCOTTYinCntrl.Scottimizer` once merged |
-| **Scoop** | Manifest ready; bucket not published yet |
-| **Chocolatey** | Manifest ready; submission pending |
+| Manager | Command | Status |
+|---|---|---|
+| **Scoop** | `scoop bucket add scottimizer https://github.com/SCOTTYinCntrl/scoop-bucket` then `scoop install scottimizer/scottimizer` | ✅ Available |
+| **winget** | `winget install SCOTTYinCntrl.Scottimizer` | [Submitted, pending review](https://github.com/microsoft/winget-pkgs/pull/453051) |
+| **Chocolatey** | `choco install scottimizer` | Manifest ready; submission pending |
 
-Until one of those is live, download the zip from
+Or just download the zip from
 [Releases](https://github.com/SCOTTYinCntrl/Scottimizer/releases/latest).
 
 ---

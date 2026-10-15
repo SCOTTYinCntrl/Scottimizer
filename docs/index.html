@@ -100,8 +100,8 @@
     },
     {
       "@type": "Question",
-      "name": "How do I install it with winget or Scoop?",
-      "acceptedAnswer": { "@type": "Answer", "text": "The winget package (SCOTTYinCntrl.Scottimizer) is submitted and pending review; once merged you can run winget install SCOTTYinCntrl.Scottimizer. Until then, download the latest release zip. Package manifests for winget, Scoop and Chocolatey are generated automatically with each release." }
+      "name": "How do I install it with Scoop or winget?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Scoop works now: run scoop bucket add scottimizer https://github.com/SCOTTYinCntrl/scoop-bucket and then scoop install scottimizer/scottimizer. The winget package (SCOTTYinCntrl.Scottimizer) is submitted and pending review; once merged you can run winget install SCOTTYinCntrl.Scottimizer. You can also always download the latest release zip." }
     }
   ]
 }
@@ -402,9 +402,10 @@
       </div>
       <div class="step">
         <div class="n">2</div>
-        <h3>Install with winget</h3>
-        <p>Available once the package is approved by the winget community repo.</p>
-        <pre><button class="copy" data-copy="winget install SCOTTYinCntrl.Scottimizer">Copy</button><code>winget install SCOTTYinCntrl.Scottimizer</code></pre>
+        <h3>Install with Scoop</h3>
+        <p>One command to install, one to keep it updated.</p>
+        <pre><button class="copy" data-copy="scoop bucket add scottimizer https://github.com/SCOTTYinCntrl/scoop-bucket&#10;scoop install scottimizer/scottimizer">Copy</button><code>scoop bucket add scottimizer https://github.com/SCOTTYinCntrl/scoop-bucket
+scoop install scottimizer/scottimizer</code></pre>
       </div>
       <div class="step">
         <div class="n">3</div>
@@ -487,8 +488,8 @@
         <p>Scottimizer benchmarks the before/after latency of <em>every</em> tweak so you can see what actually helped, keeps an exact-state undo snapshot, and includes a one-click security audit with a 0&ndash;100 score. Security changes stay additive only.</p>
       </details>
       <details>
-        <summary>How do I install it with winget or Scoop?</summary>
-        <p>The winget package (<code>SCOTTYinCntrl.Scottimizer</code>) is submitted and pending review; once merged, run <code>winget install SCOTTYinCntrl.Scottimizer</code>. Until then, download the latest release zip. winget, Scoop and Chocolatey manifests are generated automatically with every release.</p>
+        <summary>How do I install it with Scoop or winget?</summary>
+        <p><strong>Scoop works now:</strong> <code>scoop bucket add scottimizer https://github.com/SCOTTYinCntrl/scoop-bucket</code> then <code>scoop install scottimizer/scottimizer</code>. The winget package (<code>SCOTTYinCntrl.Scottimizer</code>) is submitted and pending review; once merged, run <code>winget install SCOTTYinCntrl.Scottimizer</code>. You can always download the latest release zip instead.</p>
       </details>
     </div>
   </div>

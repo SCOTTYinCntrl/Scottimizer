@@ -32,7 +32,10 @@ the friction to tip.
 
 ## Files
 
-* **`launch-runbook.md`** — 👈 **start here.** The ordered "do this now" sequence:
+* **`ready-to-post.md`** — 👈 **start here.** Paste-ready posts for the platforms
+  you already have (Reddit, X, TikTok/YouTube/Instagram), in the order to post
+  them, with the media and captions to attach.
+* **`launch-runbook.md`** — the wider "do this now" sequence:
   pre-flight, Reddit, Show HN, directories, video, and a post log to measure
   which channel worked.
 * **`launch-kit.md`** — ready-to-paste copy for every channel (short/long blurbs,

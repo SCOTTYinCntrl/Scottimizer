@@ -4,6 +4,11 @@ Goal: first **1,000 real visitors** in 7 days. Scottimizer is donation-funded, s
 **downloads are the only metric that matters** — everything here exists to raise
 that number and to make the "tip" button easy to find once someone is on the site.
 
+> **In a hurry?** `ready-to-post.md` is the stripped-down version for the three
+> platforms you already have (**Reddit, X, TikTok/YouTube/Instagram**). This file
+> is the fuller playbook, including the channels you'd add by making accounts
+> later (Hacker News, Product Hunt, AlternativeTo).
+
 ---
 
 ## Read this first (it decides everything else)

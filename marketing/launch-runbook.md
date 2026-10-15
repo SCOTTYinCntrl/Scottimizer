@@ -49,6 +49,10 @@ Everything below is already true — verify it rather than trusting it:
 - [ ] You are logged into the account you'll post from, and have checked
       **that community's self-promotion rules** (linked per channel below).
 - [ ] The demo video is playable: https://scottyincntrl.github.io/Scottimizer/#demo
+- [ ] **Repo social preview** (2 min, once): repo → **Settings → General →
+      Social preview → upload** `docs/assets/shot-dashboard.png`. Without it,
+      every link anyone shares on Reddit/HN/Discord/Discord shows a grey box
+      instead of the app — this directly costs clicks.
 
 > Reddit tip that decides success or failure: **the media is the post.** Put the
 > demo video or the benchmark screenshot in the post itself, keep the title

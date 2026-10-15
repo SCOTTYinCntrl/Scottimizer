@@ -47,6 +47,10 @@ jobs:
         shell: pwsh
         run: ./tools/Pack-Release.ps1 -Version '${{ steps.v.outputs.ver }}' -OutDir dist
 
+      - name: Generate package manifests (winget + Scoop + Chocolatey)
+        shell: pwsh
+        run: ./tools/New-PackageManifests.ps1 -Version '${{ steps.v.outputs.ver }}'
+
       - name: Publish the release
         shell: pwsh
         run: |

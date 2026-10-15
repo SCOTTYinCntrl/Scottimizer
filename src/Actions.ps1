@@ -360,6 +360,25 @@ function Build-About {
     $p4.Text = "Advanced tweaks are off by default for a reason - only enable what you understand. This app is additive for security: it never disables Defender, the firewall or Windows Update. Logs are written to the logs folder next to the app."
     [void]$c4.Body.Children.Add($p4)
     [void]$script:AboutStack.Children.Add($c4.Border)
+
+    $c5 = New-Card -Title 'SUPPORT THE PROJECT' -Accent '#F472B6'
+    $p5 = New-Object System.Windows.Controls.TextBlock
+    $p5.TextWrapping = 'Wrap'; $p5.FontSize = 12.5; $p5.Foreground = Brush '#9AA4B5'
+    $p5.Text = "Scottimizer is free, open source (MIT) and has no ads, telemetry or paid tiers. If it saved you time, latency or a headache, you can support development - every contribution goes straight back into test hardware and more tweaks.`r`n`r`nCan't chip in right now? Starring the repo and telling a friend helps just as much."
+    [void]$c5.Body.Children.Add($p5)
+
+    $links = New-Object System.Windows.Controls.WrapPanel
+    $links.Margin = New-Object System.Windows.Thickness(0,14,0,0)
+    function AddSupportLink([string]$text, [string]$hint, $action) {
+        $b = New-ToolButton -Text $text -Hint $hint
+        $b.Add_Click($action)
+        [void]$links.Children.Add($b)
+    }
+    AddSupportLink 'Donate via Cash App' 'Open Cash App in your browser'  { try { Start-Process 'https://cash.app/$ScottyRockIt27' } catch {} }
+    AddSupportLink 'Sponsor on GitHub'   'Open the GitHub Sponsors page'  { try { Start-Process 'https://github.com/sponsors/SCOTTYinCntrl' } catch {} }
+    AddSupportLink 'Star the repo'       'Open the GitHub repository'    { try { Start-Process 'https://github.com/SCOTTYinCntrl/Scottimizer' } catch {} }
+    [void]$c5.Body.Children.Add($links)
+    [void]$script:AboutStack.Children.Add($c5.Border)
 }
 
 # ---------------------------------------------------------------------

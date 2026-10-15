@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>scottimizer</id>
+    <version>2.1.2</version>
+    <title>Scottimizer</title>
+    <authors>SCOTTYinCntrl</authors>
+    <owners>SCOTTYinCntrl</owners>
+    <projectUrl>https://github.com/SCOTTYinCntrl/Scottimizer</projectUrl>
+    <packageSourceUrl>https://github.com/SCOTTYinCntrl/Scottimizer</packageSourceUrl>
+    <projectSourceUrl>https://github.com/SCOTTYinCntrl/Scottimizer</projectSourceUrl>
+    <docsUrl>https://scottyincntrl.github.io/Scottimizer/</docsUrl>
+    <iconUrl>https://raw.githubusercontent.com/SCOTTYinCntrl/Scottimizer/main/preview/icon.png</iconUrl>
+    <licenseUrl>https://github.com/SCOTTYinCntrl/Scottimizer/blob/main/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Scottimizer is an advanced Windows tuning utility for gaming performance plus privacy and security hardening. It ships 79 tweaks across six categories, a one-click security audit with a 0-100 score and per-item fixes, per-tweak latency benchmarking, exact-state undo, profiles, quick maintenance tools and a fully customisable look. It never disables Windows Defender, the firewall or Windows Update.</description>
+    <summary>Advanced Windows gaming, privacy and security tuner.</summary>
+    <releaseNotes>https://github.com/SCOTTYinCntrl/Scottimizer/releases/tag/v2.1.2</releaseNotes>
+    <tags>windows tuner gaming privacy security optimization debloat performance admin pwsh</tags>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>

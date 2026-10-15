@@ -5,9 +5,10 @@
 #    2. validate every .ps1 parses
 #    3. build the standalone script and the .exe (ps2exe, installed on demand)
 #    4. package Scottimizer-Advanced.zip + SHA-256
-#    5. commit, tag, push
-#    6. create the GitHub Release and upload the assets
-#    7. print the winget update command for the new version
+#    5. generate the winget / Scoop / Chocolatey manifests from those assets
+#    6. commit, tag, push
+#    7. create the GitHub Release and upload the assets
+#    8. print the package-manager submission commands for the new version
 #
 #  Usage:
 #    powershell -NoProfile -ExecutionPolicy Bypass -File tools\Release.ps1 -Version 2.1.1
@@ -81,6 +82,9 @@ try {
     Step "Package"
     Run 'powershell.exe' @('-NoProfile','-ExecutionPolicy','Bypass','-File',(Join-Path $root 'tools\Pack-Release.ps1'),'-Version',$ver,'-OutDir','dist')
 
+    Step "Generate package manifests (winget + Scoop + Chocolatey)"
+    Run 'powershell.exe' @('-NoProfile','-ExecutionPolicy','Bypass','-File',(Join-Path $root 'tools\New-PackageManifests.ps1'),'-Version',$ver)
+
     Step "Commit + tag"
     Run 'git' @('add','-A')
     Run 'git' @('commit','--allow-empty','-m',("Release $tag"))
@@ -112,8 +116,10 @@ try {
 
     Step "Done"
     Write-Host "    Release: https://github.com/$Repo/releases/tag/$tag" -ForegroundColor Green
-    Write-Host "    Update winget next:" -ForegroundColor Green
-    Write-Host "      powershell -NoProfile -File tools\Update-Winget.ps1 -Version $ver" -ForegroundColor Green
+    Write-Host "    Package manifests: $root\packaging\" -ForegroundColor Green
+    Write-Host "    Submit to package managers:" -ForegroundColor Green
+    Write-Host "      powershell -NoProfile -File tools\Submit-Packages.ps1 -Target all" -ForegroundColor Green
+    Write-Host "      (winget needs wingetcreate; choco needs choco + `$env:CHOCO_API_KEY)" -ForegroundColor DarkGray
 } finally {
     Pop-Location
 }

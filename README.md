@@ -36,9 +36,21 @@ Get the latest build from the **[Releases page](../../releases/latest)**:
 > the first time — click **More info → Run anyway**, or use `Scottimizer.bat`
 > to avoid the warning entirely.
 
-Installing with a package manager? The winget manifest is
-[submitted and pending review](https://github.com/microsoft/winget-pkgs/pull/453051) —
-once merged you can run `winget install SCOTTYinCntrl.Scottimizer`.
+### Install with a package manager
+
+Manifests for **winget**, **Scoop** and **Chocolatey** are generated automatically
+from every release (see [`packaging/`](packaging/README.md)):
+
+```powershell
+winget install SCOTTYinCntrl.Scottimizer      # winget (submitted for review)
+scoop bucket add scottimizer https://github.com/SCOTTYinCntrl/scoop-bucket
+scoop install scottimizer/scottimizer         # Scoop
+choco install scottimizer                     # Chocolatey (in moderation)
+```
+
+The winget manifest for the first version is
+[submitted and pending review](https://github.com/microsoft/winget-pkgs/pull/453051);
+the others above are ready to publish with a single command.
 
 ---
 
@@ -168,6 +180,8 @@ benchmarks.json            Saved latency benchmark results
 logs\                      Run logs
 state\last-apply.json      Snapshot used by Undo
 preview\                   UI screenshots
+tools\                     Release + packaging automation (Release, Pack, Manifests, Submit)
+packaging\                 Generated winget / Scoop / Chocolatey manifests
 ```
 
 ## Want to rebuild the .exe?
@@ -185,9 +199,18 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools\Release.ps1 -Version 2
 ```
 
 Add `-DryRun` to preview, or `-SkipExe` to ship source-only. Pushing a `v*` tag
-instead triggers the same build in CI (`.github/workflows/release.yml`). After a
-release, refresh the winget package with `tools\Update-Winget.ps1`. See
-`marketing\` for launch copy and the submission checklist.
+instead triggers the same build in CI (`.github/workflows/release.yml`).
+
+The release also **generates the winget, Scoop and Chocolatey manifests from the
+zip's URL and SHA-256** (`tools\New-PackageManifests.ps1`) and commits them under
+`packaging\`. Publish them all with one command:
+
+```
+powershell -NoProfile -ExecutionPolicy Bypass -File tools\Submit-Packages.ps1 -Target all
+```
+
+See [`packaging/README.md`](packaging/README.md) for the details, and `marketing\`
+for launch copy and the submission checklist.
 
 ### The app icon
 `appicon.ico` is a purple rounded tile with a bold white **S** and a gold

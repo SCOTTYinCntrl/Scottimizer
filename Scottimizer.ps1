@@ -1,4 +1,4 @@
-# =====================================================================
+﻿# =====================================================================
 #  Scottimizer 2  -  Advanced Windows gaming / privacy / security tuner
 #  Entry point.  Windows 10/11, Windows PowerShell 5.1+, Administrator.
 #
@@ -27,7 +27,7 @@ Add-Type -AssemblyName PresentationFramework, PresentationCore, WindowsBase
 
 # ---------- Paths / state ----------
 $script:AppName = 'Scottimizer'
-$script:Version = '2.1.1'
+$script:Version = '2.1.2'
 $script:AppRoot = $PSScriptRoot
 if (-not $script:AppRoot) { $script:AppRoot = (Get-Location).Path }
 $script:LogDir   = Join-Path $script:AppRoot 'logs'
@@ -300,3 +300,4 @@ try {
     try { Add-Content -LiteralPath $script:LogFile -Value $detail -Encoding UTF8 } catch {}
     [System.Windows.MessageBox]::Show($msg, 'Scottimizer', 'OK', 'Error') | Out-Null
 }
+

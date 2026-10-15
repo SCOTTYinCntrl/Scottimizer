@@ -1,0 +1,24 @@
+{
+    "version": "2.1.2",
+    "description": "Advanced Windows gaming, privacy and security tuner. Free and open source (MIT).",
+    "homepage": "https://scottyincntrl.github.io/Scottimizer/",
+    "license": "MIT",
+    "url": "https://github.com/SCOTTYinCntrl/Scottimizer/releases/download/v2.1.2/Scottimizer-Advanced.zip",
+    "hash": "sha256:297240aeb5fa8001fae700327cc2064be7285f865870e9defdfabf1c9a3b291b",
+    "bin": "Scottimizer.exe",
+    "shortcuts": [
+        [
+            "Scottimizer.exe",
+            "Scottimizer"
+        ]
+    ],
+    "checkver": {
+        "github": "https://github.com/SCOTTYinCntrl/Scottimizer"
+    },
+    "autoupdate": {
+        "url": "https://github.com/SCOTTYinCntrl/Scottimizer/releases/download/v$version/Scottimizer-Advanced.zip",
+        "hash": {
+            "url": "https://github.com/SCOTTYinCntrl/Scottimizer/releases/download/v$version/Scottimizer-Advanced.zip.sha256"
+        }
+    }
+}

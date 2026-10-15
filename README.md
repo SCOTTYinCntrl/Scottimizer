@@ -7,7 +7,7 @@
 [![License](https://img.shields.io/github/license/SCOTTYinCntrl/Scottimizer?color=8b5cf6)](LICENSE)
 [![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-ff69b4)](https://github.com/SCOTTYinCntrl/Scottimizer/blob/main/.github/FUNDING.yml)
 
-**Website & screenshots:** https://scottyincntrl.github.io/Scottimizer/
+**Website & screenshots:** https://scottyincntrl.github.io/Scottimizer/ · 🎬 **[Watch the 20-second demo](https://scottyincntrl.github.io/Scottimizer/#demo)**
 
 A ground-up upgrade of the original Scottimizer. It keeps the simple
 toggle-and-apply idea but adds **79 tweaks across 6 categories**, a
@@ -69,6 +69,8 @@ required for most tweaks — the app elevates itself.
 ---
 
 ## Screenshots
+
+🎬 **[Watch the 20-second demo](https://scottyincntrl.github.io/Scottimizer/#demo)** — benchmarks, the security audit and a real undo.
 
 | Dashboard | Gaming & Performance |
 |---|---|

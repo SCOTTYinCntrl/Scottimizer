@@ -27,14 +27,83 @@
   "name": "Scottimizer",
   "operatingSystem": "Windows 10, Windows 11",
   "applicationCategory": "UtilitiesApplication",
-  "softwareVersion": "2.1.1",
+  "softwareVersion": "2.1.2",
   "license": "https://opensource.org/licenses/MIT",
   "isAccessibleForFree": true,
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
   "url": "https://scottyincntrl.github.io/Scottimizer/",
   "downloadUrl": "https://github.com/SCOTTYinCntrl/Scottimizer/releases/latest",
+  "installUrl": "https://github.com/SCOTTYinCntrl/Scottimizer/releases/latest",
+  "softwareHelp": "https://github.com/SCOTTYinCntrl/Scottimizer#quick-start",
+  "codeRepository": "https://github.com/SCOTTYinCntrl/Scottimizer",
+  "datePublished": "2026-10-15",
+  "dateModified": "2026-10-15",
+  "fileFormat": "application/zip",
+  "screenshot": [
+    "https://scottyincntrl.github.io/Scottimizer/assets/shot-dashboard.png",
+    "https://scottyincntrl.github.io/Scottimizer/assets/shot-audit.png",
+    "https://scottyincntrl.github.io/Scottimizer/assets/shot-benchmarks.png"
+  ],
+  "featureList": [
+    "79 tweaks across 6 categories",
+    "One-click security audit with a 0-100 score",
+    "Per-tweak before/after latency benchmarking",
+    "Exact-state undo (registry values and types, services, power plan, DNS)",
+    "Six one-click profiles",
+    "Fully customisable appearance"
+  ],
+  "keywords": "windows tuner, windows optimizer, gaming optimization, latency, ping, debloat, privacy, security hardening, powershell, open source, mit",
   "description": "A free, open-source Windows gaming, privacy and security tuner: 79 tweaks, a one-click security audit, per-tweak latency benchmarks and exact-state undo.",
-  "author": { "@type": "Person", "name": "SCOTTYinCntrl" }
+  "author": { "@type": "Person", "name": "SCOTTYinCntrl", "url": "https://github.com/SCOTTYinCntrl" },
+  "sameAs": ["https://github.com/SCOTTYinCntrl/Scottimizer"]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is Scottimizer really free?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Scottimizer is free and open source under the MIT licence, with no ads, no telemetry and no paid tier. Donations are optional and never unlock anything." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it safe to run?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The full PowerShell source is in the repository so you can read every line. Security changes are additive only: Scottimizer never disables Microsoft Defender, the firewall or Windows Update. Every tweak records its exact prior state so Undo restores it precisely." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does Windows SmartScreen warn me about the .exe?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The executable is unsigned, so SmartScreen shows 'Windows protected your PC' the first time. Click More info, then Run anyway. Alternatively, run Scottimizer.bat from the zip or from source to avoid the warning entirely." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it need Administrator rights?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Scottimizer changes registry values, services, the power plan and DNS settings, so it self-elevates and you must accept the User Account Control prompt on launch." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Undo really put everything back?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Every tweak snapshots its exact prior state, including registry values and their types, service start modes, the active power plan and DNS configuration. Undo restores that snapshot rather than guessing, so it can reverse any change the app made." }
+    },
+    {
+      "@type": "Question",
+      "name": "Which Windows versions are supported?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Windows 10 and Windows 11, on x64." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is it different from other Windows tweakers like WinUtil?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Scottimizer benchmarks the before/after latency of every tweak so you can see what actually helped, keeps an exact-state undo snapshot, and includes a one-click security audit with a 0-100 score and one-click fixes. Security changes are additive only." }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I install it with winget or Scoop?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The winget package (SCOTTYinCntrl.Scottimizer) is submitted and pending review; once merged you can run winget install SCOTTYinCntrl.Scottimizer. Until then, download the latest release zip. Package manifests for winget, Scoop and Chocolatey are generated automatically with each release." }
+    }
+  ]
 }
 </script>
 <style>
@@ -187,6 +256,30 @@
     align-items:center;justify-content:center;padding:24px}
   .lb.on{display:flex}
   .lb img{max-width:100%;max-height:92vh;border-radius:12px;box-shadow:0 30px 80px -20px #000}
+
+  /* ---------- demo video ---------- */
+  .demo-wrap{display:flex;justify-content:center;gap:38px;align-items:center;flex-wrap:wrap}
+  .demo-video{width:min(300px,78vw);aspect-ratio:9/16;border-radius:22px;overflow:hidden;
+    border:1px solid var(--panel-brd);background:#000;
+    box-shadow:0 30px 70px -24px rgba(139,92,246,.7)}
+  .demo-video video{width:100%;height:100%;display:block;object-fit:cover}
+  .demo-copy{max-width:430px}
+  .demo-copy h3{margin:0 0 10px;font-size:1.35rem}
+  .demo-copy p{color:var(--muted);margin:0 0 20px}
+  .demo-copy ul{margin:0 0 22px;padding-left:20px;color:var(--muted);font-size:.94rem}
+  .demo-copy li{margin-bottom:6px}
+
+  /* ---------- faq ---------- */
+  .faq{max-width:820px;margin:0 auto}
+  .faq details{background:var(--panel);border:1px solid var(--panel-brd);border-radius:12px;
+    padding:16px 20px;margin-bottom:12px}
+  .faq details[open]{border-color:rgba(139,92,246,.5)}
+  .faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;align-items:flex-start;gap:10px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::before{content:"+";color:var(--p1);font-weight:700;font-size:1.15rem;line-height:1.4;flex:0 0 16px}
+  .faq details[open] summary::before{content:"\2212"}
+  .faq details p{margin:12px 0 0;color:var(--muted);font-size:.94rem}
+  .faq details a{color:var(--cyan)}
 </style>
 </head>
 <body>
@@ -197,9 +290,11 @@
     <nav>
       <a class="brand" href="#top"><img src="assets/icon.png" alt="">Scottimizer</a>
       <div class="links">
+        <a href="#demo">Demo</a>
         <a href="#features">Features</a>
         <a href="#screens">Screenshots</a>
         <a href="#install">Install</a>
+        <a href="#faq">FAQ</a>
         <a href="#support">Support</a>
         <a href="https://github.com/SCOTTYinCntrl/Scottimizer">Source</a>
       </div>
@@ -232,6 +327,31 @@
     <img src="https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-0078D6" alt="Platform">
   </div>
 </div>
+
+<section id="demo">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>See it in 20 seconds</h2>
+      <p>Benchmarks, a security audit and a real undo — in one free tool.</p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo-video">
+        <video src="assets/demo.mp4" poster="assets/shot-benchmarks.png" controls muted loop playsinline preload="none"></video>
+      </div>
+      <div class="demo-copy">
+        <h3>Proof, not vibes</h3>
+        <p>Most &ldquo;optimizers&rdquo; ask you to trust them. Scottimizer shows its work — and lets you reverse it.</p>
+        <ul>
+          <li><strong>Benchmark every tweak</strong> — before/after average ping and jitter.</li>
+          <li><strong>Security audit</strong> — a 0&ndash;100 score with one-click fixes.</li>
+          <li><strong>Exact-state undo</strong> — reverse anything, precisely.</li>
+          <li><strong>Never disables</strong> Defender, the firewall or Windows Update.</li>
+        </ul>
+        <a class="btn btn-primary" href="https://github.com/SCOTTYinCntrl/Scottimizer/releases/latest">Download free</a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section id="features">
   <div class="wrap">
@@ -327,6 +447,49 @@
         <pre><button class="copy" data-copy="$ScottyRockIt27">Copy</button><code>$ScottyRockIt27</code></pre>
       </div>
       <p class="fine">Not able to chip in? No problem — starring the repo, sharing the video and telling a friend helps just as much.</p>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Questions, answered</h2>
+      <p>The things people ask before they run it.</p>
+    </div>
+    <div class="faq">
+      <details open>
+        <summary>Is Scottimizer really free?</summary>
+        <p>Yes. It&rsquo;s free and open source under the MIT licence, with no ads, no telemetry and no paid tier. Donations are optional and unlock nothing.</p>
+      </details>
+      <details>
+        <summary>Is it safe to run?</summary>
+        <p>The full PowerShell source is in the repository, so you can read every line. Security changes are additive only: Scottimizer never disables Microsoft Defender, the firewall or Windows Update. Every tweak records its exact prior state so Undo restores it precisely.</p>
+      </details>
+      <details>
+        <summary>Why does Windows SmartScreen warn me about the .exe?</summary>
+        <p>The executable is unsigned, so SmartScreen shows &ldquo;Windows protected your PC&rdquo; the first time. Click <strong>More info &rarr; Run anyway</strong>, or run <code>Scottimizer.bat</code> from the zip to avoid the warning entirely.</p>
+      </details>
+      <details>
+        <summary>Does it need Administrator rights?</summary>
+        <p>Yes. It changes registry values, services, the power plan and DNS settings, so it self-elevates and you accept the User Account Control prompt on launch.</p>
+      </details>
+      <details>
+        <summary>Does Undo really put everything back?</summary>
+        <p>Every tweak snapshots its exact prior state &mdash; registry values <em>and their types</em>, service start modes, the active power plan and DNS configuration &mdash; so Undo restores that snapshot instead of guessing. Anything the app changed can be reversed.</p>
+      </details>
+      <details>
+        <summary>Which Windows versions are supported?</summary>
+        <p>Windows 10 and Windows 11, 64-bit.</p>
+      </details>
+      <details>
+        <summary>How is it different from other tweakers like WinUtil?</summary>
+        <p>Scottimizer benchmarks the before/after latency of <em>every</em> tweak so you can see what actually helped, keeps an exact-state undo snapshot, and includes a one-click security audit with a 0&ndash;100 score. Security changes stay additive only.</p>
+      </details>
+      <details>
+        <summary>How do I install it with winget or Scoop?</summary>
+        <p>The winget package (<code>SCOTTYinCntrl.Scottimizer</code>) is submitted and pending review; once merged, run <code>winget install SCOTTYinCntrl.Scottimizer</code>. Until then, download the latest release zip. winget, Scoop and Chocolatey manifests are generated automatically with every release.</p>
+      </details>
     </div>
   </div>
 </section>

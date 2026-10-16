@@ -71,3 +71,31 @@ jobs:
           Write-Host "Published $tag"
           Write-Host "NOTE: this CI-built zip is now the published asset. Commit the manifests this"
           Write-Host "run generated under packaging\ (git add packaging) so they match its SHA-256."
+
+  # Keep the self-hosted SVG badges (release version + download count) current.
+  # Runs after the release exists so the GitHub API reflects the new tag/assets.
+  refresh-badges:
+    needs: build-and-release
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Refresh self-hosted badges
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ./Update-Badges.ps1
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/assets/badges
+          if (git diff --cached --quiet) {
+            Write-Host "Badges already current."
+            exit 0
+          }
+          git commit -m "Refresh SVG badges [skip ci]"
+          git push origin main

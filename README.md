@@ -188,7 +188,8 @@ packaging\                 Generated winget / Scoop / Chocolatey manifests
 
 The README and the landing page use **self-hosted SVG badges** in
 `docs\assets\badges\` — they don't depend on shields.io (whose shared GitHub
-token pool is often rate-limited). Regenerate them after a release:
+token pool is often rate-limited). The `release` workflow refreshes them
+automatically, but you can regenerate them by hand any time:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\Update-Badges.ps1

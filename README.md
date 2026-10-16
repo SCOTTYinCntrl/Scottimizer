@@ -1,11 +1,11 @@
 # Scottimizer 2 — Advanced Gaming, Privacy & Security Tuner
 
-[![Release](https://img.shields.io/github/v/release/SCOTTYinCntrl/Scottimizer?color=8b5cf6&label=release)](https://github.com/SCOTTYinCntrl/Scottimizer/releases)
-[![Downloads](https://img.shields.io/github/downloads/SCOTTYinCntrl/Scottimizer/total?color=22d3ee)](https://github.com/SCOTTYinCntrl/Scottimizer/releases)
-![Platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-0078D6)
-![PowerShell](https://img.shields.io/badge/PowerShell-5.1-5391FE)
-[![License](https://img.shields.io/github/license/SCOTTYinCntrl/Scottimizer?color=8b5cf6)](LICENSE)
-[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-ff69b4)](https://github.com/SCOTTYinCntrl/Scottimizer/blob/main/.github/FUNDING.yml)
+[![Release](docs/assets/badges/release.svg)](https://github.com/SCOTTYinCntrl/Scottimizer/releases)
+[![Downloads](docs/assets/badges/downloads.svg)](https://github.com/SCOTTYinCntrl/Scottimizer/releases)
+![Platform](docs/assets/badges/platform.svg)
+![PowerShell](docs/assets/badges/powershell.svg)
+[![License](docs/assets/badges/license.svg)](LICENSE)
+[![Sponsor](docs/assets/badges/sponsor.svg)](https://cash.app/$ScottyRockIt27)
 
 **Website & screenshots:** https://scottyincntrl.github.io/Scottimizer/ · 🎬 **[Watch the 20-second demo](https://scottyincntrl.github.io/Scottimizer/#demo)**
 
@@ -182,6 +182,16 @@ state\last-apply.json      Snapshot used by Undo
 preview\                   UI screenshots
 tools\                     Release + packaging automation (Release, Pack, Manifests, Submit)
 packaging\                 Generated winget / Scoop / Chocolatey manifests
+```
+
+## Badges
+
+The README and the landing page use **self-hosted SVG badges** in
+`docs\assets\badges\` — they don't depend on shields.io (whose shared GitHub
+token pool is often rate-limited). Regenerate them after a release:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\Update-Badges.ps1
 ```
 
 ## Want to rebuild the .exe?

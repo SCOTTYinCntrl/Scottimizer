@@ -27,7 +27,7 @@ Add-Type -AssemblyName PresentationFramework, PresentationCore, WindowsBase
 
 # ---------- Paths / state ----------
 $script:AppName = 'Scottimizer'
-$script:Version = '2.1.2'
+$script:Version = '2.1.3'
 $script:AppRoot = $PSScriptRoot
 if (-not $script:AppRoot) { $script:AppRoot = (Get-Location).Path }
 
@@ -323,4 +323,5 @@ try {
     try { Add-Content -LiteralPath $script:LogFile -Value $detail -Encoding UTF8 } catch {}
     [System.Windows.MessageBox]::Show($msg, 'Scottimizer', 'OK', 'Error') | Out-Null
 }
+
 

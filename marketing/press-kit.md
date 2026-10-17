@@ -22,7 +22,7 @@ one-click security audit, and no ads, telemetry or paid tier.
 | **Built with** | Windows PowerShell 5.1 + WPF (no runtime to install) |
 | **License** | MIT |
 | **Price** | Free. Donations optional, unlock nothing. |
-| **Version** | 2.1.2 |
+| **Version** | 2.1.3 |
 | **Homepage** | https://scottyincntrl.github.io/Scottimizer/ |
 | **Source** | https://github.com/SCOTTYinCntrl/Scottimizer |
 | **Download** | https://github.com/SCOTTYinCntrl/Scottimizer/releases/latest |

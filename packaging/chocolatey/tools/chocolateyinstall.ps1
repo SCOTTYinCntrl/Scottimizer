@@ -5,8 +5,8 @@ $toolsDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
 $packageArgs = @{
   packageName   = 'scottimizer'
   unzipLocation = $toolsDir
-  url           = 'https://github.com/SCOTTYinCntrl/Scottimizer/releases/download/v2.1.2/Scottimizer-Advanced.zip'
-  checksum      = '9D1B9E0FC3390CC3DC59F47C3EA8F2D3BAD20F6CD819CD0AD7D4DF866691B158'
+  url           = 'https://github.com/SCOTTYinCntrl/Scottimizer/releases/download/v2.1.3/Scottimizer-Advanced.zip'
+  checksum      = 'A980FF14744EB98842AF55E35740C20B8A4D8C54A40C867C2FDDE6E3CD90BBC9'
   checksumType  = 'sha256'
 }
 

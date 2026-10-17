@@ -37,7 +37,12 @@ function Step([string]$m) { Write-Host "`n==> $m" -ForegroundColor Cyan }
 function Run([string]$exe, [string[]]$RunArgs) {
     Write-Host ("    {0} {1}" -f $exe, ($RunArgs -join ' ')) -ForegroundColor DarkGray
     if ($DryRun) { return }
-    & $exe @RunArgs
+    # git and gh write progress/status to stderr; with $ErrorActionPreference='Stop'
+    # that would abort the script even when the command succeeded. Only the exit
+    # code matters here.
+    $prev = $ErrorActionPreference
+    $ErrorActionPreference = 'Continue'
+    try { & $exe @RunArgs } finally { $ErrorActionPreference = $prev }
     if ($LASTEXITCODE -ne 0) { throw "$exe failed (exit $LASTEXITCODE)" }
 }
 function Set-VersionString([string]$file, [string]$v) {
@@ -109,15 +114,36 @@ try {
     Set-Content -LiteralPath $noteFile -Value $body -Encoding UTF8
 
     if (Get-Command gh -ErrorAction SilentlyContinue) {
+        # The tag push also starts the release workflow. Whichever side creates the
+        # release first, we then make OUR zip / checksum / notes the published ones,
+        # so they always match the manifests generated above from this exact zip.
         $exists = $false
         if (-not $DryRun) {
             gh release view $tag *> $null
             $exists = ($LASTEXITCODE -eq 0)
+            if (-not $exists) {
+                $prev = $ErrorActionPreference
+                $ErrorActionPreference = 'Continue'
+                & gh release create $tag --title "Scottimizer $ver" --notes-file $noteFile $zip $sha -R $Repo 2>$null
+                $ErrorActionPreference = $prev
+                if ($LASTEXITCODE -eq 0) {
+                    $exists = $true
+                } else {
+                    Write-Host "    release already being created by CI - waiting for it..." -ForegroundColor DarkGray
+                    $deadline = (Get-Date).AddMinutes(5)
+                    do {
+                        Start-Sleep -Seconds 10
+                        gh release view $tag *> $null
+                    } while ($LASTEXITCODE -ne 0 -and (Get-Date) -lt $deadline)
+                    $exists = ($LASTEXITCODE -eq 0)
+                }
+            }
         }
-        if ($exists) {
+        if ($exists -or $DryRun) {
+            Run 'gh' @('release','edit',$tag,'--title',"Scottimizer $ver",'--notes-file',$noteFile,'-R',$Repo)
             Run 'gh' @('release','upload',$tag,$zip,$sha,'--clobber','-R',$Repo)
         } else {
-            Run 'gh' @('release','create',$tag,'--title',"Scottimizer $ver",'--notes-file',$noteFile,$zip,$sha,'-R',$Repo)
+            throw "The release $tag could not be found or created."
         }
     } else {
         Write-Warning 'gh CLI not found - push the tag and the release workflow will build it, or create the release manually.'

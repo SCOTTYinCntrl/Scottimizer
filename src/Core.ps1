@@ -195,8 +195,13 @@ function Save-ChangeState {
         Reg           = @($script:State.Reg)
         Dns           = @($script:State.Dns)
     }
-    New-Item -ItemType Directory -Path (Split-Path $script:StateFile) -Force -ErrorAction SilentlyContinue | Out-Null
-    $obj | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $script:StateFile -Encoding UTF8
+    try {
+        New-Item -ItemType Directory -Path (Split-Path $script:StateFile) -Force -ErrorAction SilentlyContinue | Out-Null
+        $obj | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $script:StateFile -Encoding UTF8 -ErrorAction Stop
+        return $true
+    } catch {
+        return $false
+    }
 }
 
 function Read-ChangeState {

@@ -30,8 +30,30 @@ $script:AppName = 'Scottimizer'
 $script:Version = '2.1.2'
 $script:AppRoot = $PSScriptRoot
 if (-not $script:AppRoot) { $script:AppRoot = (Get-Location).Path }
-$script:LogDir   = Join-Path $script:AppRoot 'logs'
-$script:StateDir = Join-Path $script:AppRoot 'state'
+
+# The app folder can sit somewhere Windows protects (e.g. Documents / OneDrive),
+# where Defender Controlled Folder Access blocks unsigned apps from writing.
+# Probe the app folder once and fall back to %LOCALAPPDATA% so logging and the
+# undo snapshot keep working instead of crashing at the end of Apply.
+function Test-FolderWritable([string]$Path) {
+    try {
+        New-Item -ItemType Directory -Path $Path -Force -ErrorAction Stop | Out-Null
+        $probe = Join-Path $Path ('.wtest-{0}' -f [guid]::NewGuid().ToString('N'))
+        Set-Content -LiteralPath $probe -Value 'ok' -Encoding ASCII -ErrorAction Stop
+        Remove-Item -LiteralPath $probe -Force -ErrorAction SilentlyContinue
+        return $true
+    } catch { return $false }
+}
+
+$script:DataRoot     = $script:AppRoot
+$script:DataFallback = $false
+if (-not (Test-FolderWritable (Join-Path $script:AppRoot 'logs'))) {
+    $alt = Join-Path $env:LOCALAPPDATA 'Scottimizer'
+    if (Test-FolderWritable (Join-Path $alt 'logs')) { $script:DataRoot = $alt; $script:DataFallback = $true }
+}
+
+$script:LogDir   = Join-Path $script:DataRoot 'logs'
+$script:StateDir = Join-Path $script:DataRoot 'state'
 $script:StateFile= Join-Path $script:StateDir 'last-apply.json'
 New-Item -ItemType Directory -Path $script:LogDir, $script:StateDir -Force -ErrorAction SilentlyContinue | Out-Null
 $script:LogFile = Join-Path $script:LogDir ('scottimizer-{0}.log' -f (Get-Date -Format 'yyyyMMdd-HHmmss'))
@@ -212,6 +234,7 @@ $script:SearchBox.Add_LostFocus({ if (-not $script:SearchBox.Text) { $script:Sea
 
 $script:Win.Add_Loaded({
     Write-Log ("Scottimizer {0} ready." -f $script:Version) 'accent'
+    if ($script:DataFallback) { Write-Log ("App folder is not writable - using {0} for logs and undo data." -f $script:DataRoot) 'warn' }
     if ($isAdmin) { $script:AdminText.Text = 'Administrator: elevated'; $script:AdminText.Foreground = Brush '#34D399'; Set-Status 'Ready. Pick tweaks or a profile, then Apply selected.' 'info' }
     else { $script:AdminText.Text = 'Not elevated - some tweaks need admin.'; $script:AdminText.Foreground = Brush '#F87171'; Set-Status 'Running without elevation - some tweaks will fail.' 'warn' }
 

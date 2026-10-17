@@ -455,7 +455,7 @@ function Invoke-Apply {
             $i++
             Set-Progress ([math]::Round(100 * $i / $sel.Count))
         }
-        Save-ChangeState
+        if (-not (Save-ChangeState)) { Write-Log ('Could not save the undo snapshot to ' + $script:StateDir + ' - folder blocked or read-only.') 'warn' }
         Set-Progress 100
         if ($benchAdded -gt 0 -and $script:ActivePage.Id -eq 'Benchmarks') { Build-Benchmarks }
         $msg = if ($needReboot) { 'Done. Restart your PC so every change takes effect.' }
@@ -463,6 +463,9 @@ function Invoke-Apply {
                else { 'Done. Everything applied.' }
         Write-Log $msg $(if ($failed -gt 0) { 'warn' } else { 'ok' })
         Set-Status $msg $(if ($failed -gt 0) { 'warn' } else { 'ok' })
+    } catch {
+        Write-Log ('Apply failed: ' + $_.Exception.Message) 'err'
+        Set-Status 'Apply failed - see the log for details.' 'err'
     } finally {
         Set-Busy $false
         if ($script:ActiveGroup) { Update-ActiveBadges $script:ActiveGroup }
